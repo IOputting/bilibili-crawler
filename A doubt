@@ -1,0 +1,40 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import requests
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+
+chrome_options = Options()
+#chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+
+#SCT_TOKEN = 'sctp2993t1dvpmj4gsukc1bvdnwsfzm'
+#url = f'https://sctapi.ftqq.com/{SCT_TOKEN}.send'
+
+wd=webdriver.Chrome(options=chrome_options)
+wd.implicitly_wait(3)
+wd.get('https://www.bilibili.com/')
+
+keywords = ['这里','可以','替换','增删',]
+while True:
+    j = 1
+    for i in range(1):
+        body = wd.find_element(By.TAG_NAME, 'body')
+        body.send_keys(Keys.PAGE_DOWN)
+        print('[','*'*(j//3),'-'*(100-j//3),']',sep='')
+        j += 1
+    vidio = wd.find_elements(By.CLASS_NAME, "bili-video-card__info--tit")
+    for i in vidio:
+        #if any(keyword in i.text for keyword in keywords):
+            link = i.find_element(By.TAG_NAME, "a").get_attribute("href")
+            print(i.text,link)
+            data = {
+               'title': i.text,
+               'desp': link
+            }
+            #response = requests.post(url, data=data)
+            #print(response.text)
+    time.sleep(3600)
