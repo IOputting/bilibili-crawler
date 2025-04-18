@@ -11,7 +11,7 @@ chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
-SCT_TOKEN = 'sctp2993t1dvpmj4gsukc1bvdnwsfzm'
+SCT_TOKEN = '这里可以替换成你的SeverChan Key'
 url = f'https://sctapi.ftqq.com/{SCT_TOKEN}.send'
 
 wd=webdriver.Chrome(options=chrome_options)
